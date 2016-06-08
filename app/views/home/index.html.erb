@@ -1,0 +1,18 @@
+<h1>Dashboard</h1>
+<p>See what's happening in your network</p>
+
+<hr>
+<h3>Hey! Why not fill out a profile and connect with other students!</h3>
+
+<%= link_to "Setup Profile!", new_profile_path %>
+<hr>
+
+<% if signed_in? %>
+  <% @users.each do |user| %>
+  <div>
+    <p><%= link_to user.username, profile_path(user) %></p>
+    <p><%= user.profile.bio %></p>
+  </div>
+  <hr>
+  <% end %>
+<% end %>
