@@ -2,17 +2,18 @@
 <p>See what's happening in your network</p>
 
 <hr>
-<h3>Hey! Why not fill out a profile and connect with other students!</h3>
-
-<%= link_to "Setup Profile!", new_profile_path %>
+<% if signed_in? && @user.profile.bio %>
+  <h3>Hey there <%= @user.username %>!</h3>
+  <p><%= @daily_quote %></p>
+<% elsif signed_in? && @user.profile.bio == nil %>
+  <h3>Hey there <%= @user.username %>!</h3>
+  <p>Don't forget to fill out your profile!</p>
+  <%= link_to "Setup Profile!", new_profile_path %>
+<% else %>
+  <h3>Hey there!!</h3>
+  <p>Sign up and get help today!!</p>
+  <%= link_to "Sign Up", new_user_path %>
+<% end %>
 <hr>
 
-<% if signed_in? %>
-  <% @users.each do |user| %>
-  <div>
-    <p><%= link_to user.username, profile_path(user) %> joined <%= time_ago_in_words(user.created_at) + ' ago' %></p>
-    <p><%= user.profile.bio %></p>
-  </div>
-  <hr>
-  <% end %>
-<% end %>
+<%= render @users %>
