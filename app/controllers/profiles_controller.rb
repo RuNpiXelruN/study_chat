@@ -5,6 +5,7 @@ class ProfilesController < ApplicationController
   def show
     @user = User.find(params[:id])
     @profile = @user.profile
+    @location = @profile.location
   end
 
   def new
@@ -34,6 +35,6 @@ class ProfilesController < ApplicationController
 
   private
   def profile_params
-    params.require(:profile).permit(:bio, :image, :user_id)
+    params.require(:profile).permit(:bio, :image, :user_id, location_attriubtes: [:address, :suburb, :state, :country, :postcode])
   end
 end
