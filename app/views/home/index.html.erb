@@ -10,7 +10,7 @@
 <% if signed_in? %>
   <% @users.each do |user| %>
   <div>
-    <p><%= link_to user.username, profile_path(user) %></p>
+    <p><%= link_to user.username, profile_path(user) %> joined <%= time_ago_in_words(user.created_at) + ' ago' %></p>
     <p><%= user.profile.bio %></p>
   </div>
   <hr>
