@@ -3,4 +3,12 @@
 <p>Email: <%= @user.email %></p>
 <p>About me: <%= @profile.bio %></p>
 
+<p>Add a location?</p>
+<p><%= link_to "Add Location", new_location_path(name: "profile") %></p>
+
+<% if @profile.location %>
+  <p><%= @profile.location.address %></p>
+<% end %>
+
+
 <%= link_to "Back", home_path %>
