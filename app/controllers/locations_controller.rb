@@ -11,10 +11,12 @@ class LocationsController < ApplicationController
     @user = current_user
     @profile = current_user.profile
     # binding.pry
-    if params[:name]
+    if params[:profile]
       @profile.build_location(location_params).save
       flash[:notice] = "Success"
       redirect_to profile_path(@user)
+    # elsif params[:teacher]
+    #   redirect_to root_path
     else
       redirect_to home_path
     end
