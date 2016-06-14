@@ -1,28 +1,43 @@
 <h1><%= @user.username %>s' profile page!</h1>
+
+<% unless @user == current_user %>
+  <%= follow_button(@user) %>
+<% end %>
+<hr>
 <p><%= image_tag @profile.image.medium.url %></p>
 <p>Email: <%= @user.email %></p>
 <p>About me: <%= @profile.bio %></p>
 
-<hr>
-<h3>Start a chat?!</h3>
-<%= render partial: 'chats/form', locals: {user: @user} %>
-
-<hr>
-
-<h3>My Chat's</h3>
-<%= render @user.chats %>
-
-<hr>
-<p>Add a location?</p>
-<p><%= link_to "Add Location", new_location_path(name: "profile") %></p>
-
-
-
-
-<% if @profile.location %>
-  <p><%= render @profile.location %></p>
+<% if @user == current_user %>
+  <hr>
+  <h3>Start a chat?!</h3>
+  <%= render partial: 'chats/form', locals: {user: @user} %>
 <% end %>
 
+<hr>
+
+<% if @user == current_user %>
+  <h3>My Chat's</h3>
+<% else %>
+  <h3><%= @user.username %>'s Chats</h3>
+<% end %>
+<%= render @user.chats %>
+
+
+<% if @user == current_user %>
+  <hr>
+  <p>Add a location?</p>
+  <p><%= link_to "Add Location", new_location_path(name: "profile") %></p>
+
+  <% if @profile.location %>
+    <p><%= render @profile.location %></p>
+  <% end %>
+<% else %>
+  <% if @profile.location %>
+    <h3><%= @user.username %>'s Locations</h3>
+    <p><%= render @profile.location %></p>
+  <% end %>
+<% end %>
 
 
 

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :edit, :update, :destroy]
   resources :users do
     resources :chats
+      post 'follow', to: 'following_relationships#create'
+    delete 'follow', to: 'following_relationships#destroy'
   end
   get 'home/index', to: 'home#index', as: '/home'
 
