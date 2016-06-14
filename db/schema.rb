@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610025341) do
+ActiveRecord::Schema.define(version: 20160614120504) do
+
+  create_table "chats", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "chat_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_comments_on_chat_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string   "address"
@@ -35,18 +54,6 @@ ActiveRecord::Schema.define(version: 20160610025341) do
     t.datetime "updated_at", null: false
     t.string   "image"
     t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
-  create_table "subjects", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "subjectable_type"
-    t.integer  "subjectable_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "profile_id"
-    t.index ["profile_id"], name: "index_subjects_on_profile_id"
-    t.index ["subjectable_type", "subjectable_id"], name: "index_subjects_on_subjectable_type_and_subjectable_id"
   end
 
   create_table "users", force: :cascade do |t|

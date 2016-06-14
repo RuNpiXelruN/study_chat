@@ -3,24 +3,26 @@
 <p>Email: <%= @user.email %></p>
 <p>About me: <%= @profile.bio %></p>
 
+<hr>
+<h3>Start a chat?!</h3>
+<%= render partial: 'chats/form', locals: {user: @user} %>
+
+<hr>
+
+<h3>My Chat's</h3>
+<%= render @user.chats %>
+
+<hr>
 <p>Add a location?</p>
 <p><%= link_to "Add Location", new_location_path(name: "profile") %></p>
 
-<% if @profile.subjects.count >= 1 %>
-  <p>Add another subject?</p>
-<% else %>
-  <p>What are you even doing?..add some subjects!</p>
-<% end %>
-<p><%= link_to "Add subject", new_subject_path(name: "profile") %></p>
-<%# link_to "Add Location", new_location_path(name: "teacher") #%>
+
+
 
 <% if @profile.location %>
   <p><%= render @profile.location %></p>
 <% end %>
 
-<% if @profile.subjects %>
-  <%= render @profile.subjects %>
-<% end %>
 
 
 

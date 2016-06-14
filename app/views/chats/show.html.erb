@@ -1,0 +1,9 @@
+<h3>A <%= @chat.title %> Chat</h3>
+<p>Created by <%= link_to @chat.user.username, profile_path(@chat.user.profile) %>, <%= time_ago_in_words(@chat.created_at) + ' ago' %></p>
+<hr>
+<%= link_to "Back", chats_path %>
+</br>
+<%= render partial: 'comments/form' %>
+
+<hr>
+<%= render @chat.comments %>
